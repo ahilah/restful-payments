@@ -1,0 +1,17 @@
+{
+    "id": 8,
+    "firstName": "Olivia",
+    "lastName": "Anderson",
+    "creditCards": [
+        {
+            "id": 8,
+            "cardNumber": "579",
+            "cardType": "discover",
+            "account": {
+                "id": 8,
+                "balance": 2200.0,
+                "blocked": false
+            }
+        }
+    ]
+}

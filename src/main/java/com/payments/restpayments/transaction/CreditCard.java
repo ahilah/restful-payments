@@ -2,10 +2,10 @@ package com.payments.restpayments.transaction;
 
 import com.payments.restpayments.exception.BlockedAccountException;
 import com.payments.restpayments.exception.InsufficientFundsException;
+import com.payments.restpayments.role.Client;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CreditCard {
     private int id;
@@ -21,7 +21,7 @@ public class CreditCard {
         this.id = creditCard.getId();
         this.cardNumber = creditCard.getCardNumber();
         this.cardType = creditCard.getCardType();
-        this.account = creditCard.getAccount();
+        this.account = new Account(creditCard.getAccount());
         this.payments = creditCard.getPayments();
     }
 
@@ -94,4 +94,22 @@ public class CreditCard {
         }
         return payment;
     }
+
+    public static Map<String, Integer> getSortedCards(List<Client> clients) {
+        Map<String, Integer> cardTypesCount = new HashMap<>();
+        for (Client client : clients) {
+            for (CreditCard creditCard : client.getCreditCards()) {
+                String cardType = creditCard.getCardType();
+                cardTypesCount.put(cardType, cardTypesCount.getOrDefault(cardType, 0) + 1);
+            }
+        }
+
+        return cardTypesCount.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new));
+    }
+
+
 }

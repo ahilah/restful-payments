@@ -2,15 +2,9 @@ package com.payments.restpayments.role;
 
 import com.payments.restpayments.transaction.Account;
 import com.payments.restpayments.transaction.CreditCard;
-import com.payments.restpayments.transaction.Payment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 public class Client {
     private int id;
@@ -103,18 +97,14 @@ public class Client {
         if (partialClient.getLastName() != null) {
             this.setLastName(partialClient.getLastName());
         }
-        if (partialClient.getCreditCards() != null) {
-            // this.creditCards.clear(); // Очищаємо поточний список кредитних карток клієнта
-            this.creditCards.addAll(partialClient.getCreditCards()); // Додаємо нові кредитні картки
-        }
     }
 
     public CreditCard searchByCardNumber(String cardNumber) {
         for (CreditCard card : creditCards) {
             if (card.getCardNumber().equals(cardNumber)) {
-                return card; // Повертаємо кредитну картку, якщо знайдено збіг
+                return card;
             }
         }
-        return null; // Повертаємо null, якщо кредитна картка не знайдена
+        return null;
     }
 }

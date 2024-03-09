@@ -1,9 +1,5 @@
 package com.payments.restpayments.transaction;
 
-import com.payments.restpayments.exception.BlockedAccountException;
-import com.payments.restpayments.exception.InsufficientFundsException;
-import com.payments.restpayments.transaction.Account;
-
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -11,8 +7,8 @@ public class Payment {
     private int id;
     private double amount;
     private LocalDateTime timestamp;
-    private int senderCreditCardID;
-    private int receiverCreditCardID;
+    private int senderAccountID;
+    private int receiverAccountID;
 
     public Payment() {
     }
@@ -21,17 +17,17 @@ public class Payment {
         this.id = payment.getId();
         this.amount = payment.getAmount();
         this.timestamp = payment.getTimestamp();
-        this.senderCreditCardID = payment.getSenderCreditCardID();
-        this.receiverCreditCardID = payment.getReceiverCreditCardID();
+        this.senderAccountID = payment.getSenderAccountID();
+        this.receiverAccountID = payment.getReceiverAccountID();
     }
 
-    public Payment(int senderCreditCardID, int receiverCreditCardID, double amount) {
+    public Payment(int senderAccountID, int receiverAccountID, double amount) {
         Random random = new Random();
         this.id = random.nextInt(1000000);;
         this.amount = amount;
         this.timestamp = LocalDateTime.now();
-        this.senderCreditCardID = senderCreditCardID;
-        this.receiverCreditCardID = receiverCreditCardID;
+        this.senderAccountID = senderAccountID;
+        this.receiverAccountID = receiverAccountID;
     }
 
     public int getId() {
@@ -58,19 +54,19 @@ public class Payment {
         this.timestamp = timestamp;
     }
 
-    public int getSenderCreditCardID() {
-        return senderCreditCardID;
+    public int getSenderAccountID() {
+        return senderAccountID;
     }
 
-    public void setSenderCreditCardID(int senderCreditCardID) {
-        this.senderCreditCardID = senderCreditCardID;
+    public void setSenderAccountID(int senderAccountID) {
+        this.senderAccountID = senderAccountID;
     }
 
-    public int getReceiverCreditCardID() {
-        return receiverCreditCardID;
+    public int getReceiverAccountID() {
+        return receiverAccountID;
     }
 
-    public void setReceiverCreditCardID(int receiverCreditCardID) {
-        this.receiverCreditCardID = receiverCreditCardID;
+    public void setReceiverAccountID(int receiverAccountID) {
+        this.receiverAccountID = receiverAccountID;
     }
 }

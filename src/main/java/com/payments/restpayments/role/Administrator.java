@@ -1,6 +1,12 @@
 package com.payments.restpayments.role;
 
 import com.payments.restpayments.transaction.Account;
+import com.payments.restpayments.transaction.CreditCard;
+import com.payments.restpayments.transaction.Payment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class Administrator {
     private int id;
@@ -55,4 +61,39 @@ public class Administrator {
         }
     }
 
+    public static <T> T searchByID(List<T> entities, int entityId) {
+        Optional<T> entityOptional = entities.stream()
+                .filter(entity -> (entity instanceof Client && ((Client) entity).getId() == entityId)
+                        || (entity instanceof Administrator && ((Administrator) entity).getId() == entityId))
+                .findFirst();
+        return entityOptional.orElse(null);
+    }
+
+    public static <T> T searchByNumber(List<T> entities, String entityId) {
+        Optional<T> entityOptional = entities.stream()
+                .filter(entity -> (entity instanceof CreditCard &&
+                        ((CreditCard) entity).getCardNumber().equals(entityId)))
+                .findFirst();
+        return entityOptional.orElse(null);
+    }
+
+    public Administrator partiallyUpdate(Administrator partialAdmin) {
+        if (partialAdmin.getUsername() != null) {
+            this.setUsername(partialAdmin.getUsername());
+        }
+        if (partialAdmin.getPassword() != null) {
+            this.setPassword(partialAdmin.getPassword());
+        }
+        return this;
+    }
+
+    public static List<Payment> showPaymentsInfo(List<Client> clients) {
+        List<Payment> payments = new ArrayList<>();
+        for(Client client : clients) {
+            for(CreditCard creditCard : client.getCreditCards()) {
+                payments.addAll(creditCard.getPayments());
+            }
+        }
+        return payments;
+    }
 }

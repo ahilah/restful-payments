@@ -1,14 +1,12 @@
 package com.payments.restpayments.transaction;
 
 import com.payments.restpayments.exception.InsufficientFundsException;
-import com.payments.restpayments.role.Client;
 
 public class Account {
     private int id;
     private double balance;
     private boolean isBlocked;
 
-    // Constructors, getters, setters, methods for blocking, unblocking, and replenishing the account
     public Account() {
     }
 

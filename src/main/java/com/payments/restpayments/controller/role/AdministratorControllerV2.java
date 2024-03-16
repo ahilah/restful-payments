@@ -1,4 +1,4 @@
-package com.payments.restpayments.controller;
+package com.payments.restpayments.controller.role;
 
 import com.payments.restpayments.exception.AdministratorNotFoundException;
 import com.payments.restpayments.role.Administrator;

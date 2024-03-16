@@ -1,4 +1,4 @@
-package com.payments.restpayments.controller;
+package com.payments.restpayments.controller.transaction;
 
 import com.payments.restpayments.role.Client;
 import com.payments.restpayments.transaction.Account;

@@ -1,4 +1,4 @@
-package com.payments.restpayments.controller;
+package com.payments.restpayments.controller.role;
 
 import com.payments.restpayments.role.Administrator;
 import com.payments.restpayments.role.Client;
@@ -56,7 +56,7 @@ public class AdministratorControllerV1 {
         return ResponseEntity.notFound().build(); // Повернути помилку 404, якщо клієнт не знайдений
     }
 
-    // http://localhost:8080/admin/v1/client
+    // http://localhost:8080/admin/v1/client?
     @GetMapping("/client")
     public ResponseEntity<Client> getClientByNameRegex(@RequestParam("name") String name) {
         Pattern pattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE);

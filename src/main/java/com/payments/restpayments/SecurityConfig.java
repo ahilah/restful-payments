@@ -1,4 +1,4 @@
-/**/package com.payments.restpayments;
+package com.payments.restpayments;
 
 import com.payments.restpayments.role.Administrator;
 import com.payments.restpayments.role.Client;

@@ -7,8 +7,12 @@ public class Payment {
     private int id;
     private double amount;
     private LocalDateTime timestamp;
+    @Deprecated
     private int senderAccountID;
+    @Deprecated
     private int receiverAccountID;
+    /*private String senderCardNumber;
+    private String receiverCardNumber;*/
 
     public Payment() {
     }
@@ -23,9 +27,17 @@ public class Payment {
 
     public Payment(int senderAccountID, int receiverAccountID, double amount) {
         Random random = new Random();
-        this.id = random.nextInt(1000000);;
+        this.id = random.nextInt(10000000);
         this.amount = amount;
         this.timestamp = LocalDateTime.now();
+        this.senderAccountID = senderAccountID;
+        this.receiverAccountID = receiverAccountID;
+    }
+
+    public Payment(int id, double amount, LocalDateTime timestamp, int senderAccountID, int receiverAccountID) {
+        this.id = id;
+        this.amount = amount;
+        this.timestamp = timestamp;
         this.senderAccountID = senderAccountID;
         this.receiverAccountID = receiverAccountID;
     }

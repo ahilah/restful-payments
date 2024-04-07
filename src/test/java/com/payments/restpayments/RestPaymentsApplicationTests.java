@@ -8,6 +8,7 @@ class RestPaymentsApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

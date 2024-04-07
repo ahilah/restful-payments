@@ -8,7 +8,12 @@ import com.payments.restpayments.role.Client;
 import com.payments.restpayments.security.UserAuthorizationService;
 import com.payments.restpayments.transaction.Account;
 import com.payments.restpayments.transaction.CreditCard;
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +47,11 @@ public class AdministratorControllerV1 {
 
     // http://localhost:8080/admin/v1/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved list of clients",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
     @Operation(summary = "Get all clients")
     @GetMapping("/")
     @ResponseBody
@@ -60,6 +70,13 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/client/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Retrieve client by ID", description = "")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved client by ID",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Client.class)))
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "clientID", description = "ID of the client to be retrieved", required = true)
     @GetMapping("/{clientID}")
     @ResponseBody
     public Client getClientByID(@PathVariable String clientID) {
@@ -77,6 +94,13 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/client/name
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by first name")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved client by first name",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "404", description = "Client not found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "firstName", description = "First name of the client to be retrieved", required = true)
     @GetMapping("/client/name/{firstName}")
     @ResponseBody
     public ResponseEntity<Client> getClientByName(@PathVariable String firstName) {
@@ -100,6 +124,14 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/client/name/full
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by both first and last name")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved client by both first and last name",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "404", description = "Client not found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "firstName", description = "First name of the client to be retrieved", required = true)
+    @Parameter(name = "lastName", description = "Last name of the client to be retrieved", required = true)
     @GetMapping("/client/name/full")
     @ResponseBody
     public ResponseEntity<Client> getClientByNameAndLastName(@RequestParam("firstName") String firstName,
@@ -129,6 +161,13 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/client?
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by name regex")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved client by name regex",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "404", description = "Client not found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "name", description = "Name or part of the name of the client to be retrieved", required = true)
     @GetMapping("/client")
     @ResponseBody
     public ResponseEntity<Client> getClientByNameRegex(@RequestParam("name") String name) {
@@ -154,6 +193,12 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/client/add
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Create a new client")
+    @ApiResponse(responseCode = "200", description = "Client created successfully",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "client", description = "New client to add", required = true)
     @PostMapping("/client/add")
     @ResponseBody
     public Client createClient(@RequestBody Client client) {
@@ -182,6 +227,15 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/update/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Full update a client by ID")
+    @ApiResponse(responseCode = "200", description = "Client updated successfully",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Client not found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "clientId", description = "ID of the client to be updated", required = true)
     @PutMapping("/update/{clientId}")
     @ResponseBody
     public Client updateClient(@PathVariable String clientId, @RequestBody Client client) {
@@ -225,6 +279,12 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/client/bulkAdd
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Group clients adding")
+    @ApiResponse(responseCode = "200", description = "Clients added successfully",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @Parameter(name = "newClients", description = "List of new clients to add", required = true)
     @PostMapping("/client/bulkAdd")
     @ResponseBody
     public List<Client> bulkAddClients(@RequestBody List<Client> newClients) {
@@ -248,6 +308,14 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/unblock/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Unblock an client account")
+    @ApiResponse(responseCode = "200", description = "Account unblocked successfully",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @ApiResponse(responseCode = "404", description = "Account not found")
+    @Parameter(name = "accountId", description = "ID of the account to be unblocked", required = true)
     @PatchMapping("/unblock/{accountId}")
     @ResponseBody
     public Account unblockAccount(@PathVariable int accountId) {
@@ -284,6 +352,14 @@ public class AdministratorControllerV1 {
     // http://localhost:8080/admin/v1/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete a client by ID")
+    @ApiResponse(responseCode = "200", description = "Client deleted successfully",
+            content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized access attempt",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = AccessDeniedException.class)))
+    @ApiResponse(responseCode = "404", description = "Client not found")
+    @Parameter(name = "clientId", description = "ID of the client to be deleted", required = true)
     @DeleteMapping("/{clientId}")
     @ResponseBody
     public List<Client> deleteClient(@PathVariable String clientId) {

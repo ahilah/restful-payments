@@ -1,0 +1,9 @@
+1,1,961,visa,1,1200,false
+2,2,456,mastercard,2,100,false
+3,3,789,amex,3,2000,false
+4,4,135,discover,4,150000,true
+5,5,246,visa,5,300,false
+6,6,357,amex,6,2500,false
+7,7,468,mastercard,7,1800,false
+8,8,579,discover,8,2200,false
+9,2,555,visa,9,10,true

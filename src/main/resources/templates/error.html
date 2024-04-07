@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Error Page</title>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <!--<title th:text="${message}"></title>-->
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Adjust as needed */
+        }
+
+        .video-container iframe {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron alert-danger">
+        <h1>Oops... something went wrong.</h1>
+        <h2 th:text="${'Code ' + status + '. ' + error}"></h2>
+
+        <table >
+            <tr><td >Message</td><td th:text="${message}"></td></tr>
+            <tr><td >Status Code</td><td th:text="${status}"></td></tr>
+            <tr><td >Exception</td><td th:text="${exception}"></td></tr>
+            <tr><td >Stacktrace</td><td><pre th:text="${trace}"></pre></td></tr>
+            <tr><td >Binding Errors</td><td th:text="${errors}"></td></tr>
+        </table>
+        <div class="video-container">
+            <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=cC56d-_fbQPNM8Ez"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    autoplay>
+            </iframe>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

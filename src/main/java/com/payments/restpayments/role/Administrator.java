@@ -3,37 +3,39 @@ package com.payments.restpayments.role;
 import com.payments.restpayments.transaction.Account;
 import com.payments.restpayments.transaction.CreditCard;
 import com.payments.restpayments.transaction.Payment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Administrator {
-    private int id;
+    private String adminID;
     private String username;
     private String password;
+    private static final Logger logger = LogManager.getLogger(Administrator.class);
 
     public Administrator() {
     }
 
     public Administrator(Administrator admin) {
-        this.id = admin.getId();
+        this.adminID = admin.getAdminID();
         this.username = admin.getUsername();
         this.password = admin.getPassword();
     }
 
-    public Administrator(int id, String username, String password) {
-        this.id = id;
+    public Administrator(String adminID, String username, String password) {
+        this.adminID = adminID;
         this.username = username;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public String getAdminID() {
+        return adminID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdminID(String adminID) {
+        this.adminID = adminID;
     }
 
     public String getUsername() {
@@ -52,24 +54,34 @@ public class Administrator {
         this.password = password;
     }
 
-    public void removeAccountBlock(Account account) {
+    public void removeAccountBlock(@NotNull Account account) {
         if (account.isBlocked()) {
             account.setBlocked(false);
-            System.out.println("Account " + account.getId() + " unblocked successfully by admin ID = " + id);
+            System.out.println("Account " + account.getId() + " unblocked successfully by admin ID = " + adminID);
         } else {
             System.out.println("Account is not blocked.");
         }
     }
 
-    public static <T> T searchByID(List<T> entities, int entityId) {
+    public static <T> T searchByID(@NotNull List<T> entities, String entityId) {
         Optional<T> entityOptional = entities.stream()
-                .filter(entity -> (entity instanceof Client && ((Client) entity).getId() == entityId)
-                        || (entity instanceof Administrator && ((Administrator) entity).getId() == entityId))
+                .filter(entity -> (entity instanceof Client && Objects.equals(((Client) entity).getClientID(), entityId))
+                        || (entity instanceof Administrator && Objects.equals(((Administrator) entity).getAdminID(), entityId)))
                 .findFirst();
         return entityOptional.orElse(null);
     }
 
-    public static <T> T searchByNumber(List<T> entities, String entityId) {
+    public static <T> T searchByUsername(@NotNull List<T> entities, String entityUsername) {
+        Optional<T> entityOptional = entities.stream()
+                .filter(entity -> (entity instanceof Client &&
+                        Objects.equals(((Client) entity).getUsername(), entityUsername))
+                        || (entity instanceof Administrator &&
+                        Objects.equals(((Administrator) entity).getUsername(), entityUsername)))
+                .findFirst();
+        return entityOptional.orElse(null);
+    }
+
+    public static <T> T searchByNumber(@NotNull List<T> entities, String entityId) {
         Optional<T> entityOptional = entities.stream()
                 .filter(entity -> (entity instanceof CreditCard &&
                         ((CreditCard) entity).getCardNumber().equals(entityId)))
@@ -77,7 +89,7 @@ public class Administrator {
         return entityOptional.orElse(null);
     }
 
-    public Administrator partiallyUpdate(Administrator partialAdmin) {
+    public Administrator partiallyUpdate(@NotNull Administrator partialAdmin) {
         if (partialAdmin.getUsername() != null) {
             this.setUsername(partialAdmin.getUsername());
         }
@@ -87,13 +99,24 @@ public class Administrator {
         return this;
     }
 
-    public static List<Payment> showPaymentsInfo(List<Client> clients) {
-        List<Payment> payments = new ArrayList<>();
+    public static @NotNull Set<Payment> showPaymentsInfo(@NotNull List<Client> clients) {
+        Set<Payment> payments = new HashSet<>();
         for(Client client : clients) {
             for(CreditCard creditCard : client.getCreditCards()) {
                 payments.addAll(creditCard.getPayments());
             }
         }
         return payments;
+    }
+
+    public boolean isValidNewAdmin(@NotNull List<Administrator> admins) {
+        for (Administrator admin : admins) {
+            if (this.getUsername().equals(admin.getUsername())
+                    && this.getPassword().equals(admin.getPassword())) {
+                logger.warn("Admin has already exists");
+                return false;
+            }
+        }
+        return true;
     }
 }

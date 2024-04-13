@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping({"/role"})
+@RequestMapping({"/api/role"})
 public class RoleAuthController {
     private static final Logger logger = LogManager.getLogger(RoleAuthController.class);
 
-    // http://localhost:8080/role
+    // http://localhost:8080/api/role
     @GetMapping("")
     /*@PreAuthorize("isAuthenticated()")*/
     public List<String> getUserRoles() {

@@ -38,14 +38,14 @@ import static com.payments.restpayments.RestPaymentsApplication.admins;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/admin/v1", "/v1/admin"})
-@Tag(name = "Administrator API v1", description = "Endpoints for Administrator API version 1")
+@RequestMapping({"/api/v1/admin", "/api/admin/v1"})
+@Tag(name = "API v1 Administrator", description = "Endpoints for Administrator API version 1")
 public class AdministratorControllerV1 {
     private static final Logger logger = LogManager.getLogger(AdministratorControllerV1.class);
     Authentication authentication;
     UserDetails userDetails;
 
-    // http://localhost:8080/admin/v1/
+    // http://localhost:8080/api/v1/admin/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved list of clients",
             content = @Content(mediaType = "application/json"))
@@ -67,7 +67,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/client/
+    // http://localhost:8080/api/v1/admin/client/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Retrieve client by ID", description = "")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved client by ID",
@@ -91,7 +91,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/client/name
+    // http://localhost:8080/api/v1/admin/client/name
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by first name")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved client by first name",
@@ -121,7 +121,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/client/name/full
+    // http://localhost:8080/api/v1/admin/client/name/full
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by both first and last name")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved client by both first and last name",
@@ -158,7 +158,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/client?
+    // http://localhost:8080/api/v1/admin/client?
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get client by name regex")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved client by name regex",
@@ -190,7 +190,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/client/add
+    // http://localhost:8080/api/v1/admin/client/add
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Create a new client")
     @ApiResponse(responseCode = "200", description = "Client created successfully",
@@ -224,7 +224,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/update/
+    // http://localhost:8080/api/v1/admin/update/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Full update a client by ID")
     @ApiResponse(responseCode = "200", description = "Client updated successfully",
@@ -276,7 +276,7 @@ public class AdministratorControllerV1 {
     }
 
 
-    // http://localhost:8080/admin/v1/client/bulkAdd
+    // http://localhost:8080/api/v1/admin/client/bulkAdd
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Group clients adding")
     @ApiResponse(responseCode = "200", description = "Clients added successfully",
@@ -305,7 +305,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/unblock/
+    // http://localhost:8080/api/v1/admin/unblock/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Unblock an client account")
     @ApiResponse(responseCode = "200", description = "Account unblocked successfully",
@@ -349,7 +349,7 @@ public class AdministratorControllerV1 {
         }
     }
 
-    // http://localhost:8080/admin/v1/
+    // http://localhost:8080/api/v1/admin/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete a client by ID")
     @ApiResponse(responseCode = "200", description = "Client deleted successfully",

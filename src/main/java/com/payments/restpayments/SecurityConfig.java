@@ -2,6 +2,7 @@ package com.payments.restpayments;
 
 import com.payments.restpayments.role.Administrator;
 import com.payments.restpayments.role.Client;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,16 +29,17 @@ public class SecurityConfig {
     // http://localhost:8080/logout
 
     @Bean
-    public SecurityFilterChain securityFilterChain(/*@NotNull*/ HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/index.html", "/components/**").permitAll()
                 .requestMatchers("/v3/api-docs").permitAll()
                 .requestMatchers("/swagger-ui/", "/resources/**", "/static/**",
                         "/css/**", "/js/**", "/images/**", "/webjars/**", "/error/**").permitAll()
-                .requestMatchers( "/payment/v1/**", "/card/v2/**").hasRole("ADMIN")
-                .requestMatchers("/client/**", "/account/**", "/payment/v2/**",
-                        "/card/v1/update/", "/card/v1/add").hasRole("USER")
-                .requestMatchers("/role/**", "/card/v1/", "/super/**","/admin/**", "/super/**").permitAll()
+                .requestMatchers( "/api/v1/payment/**", "/api/v2/card/**").hasRole("ADMIN")
+                .requestMatchers("/api/client/**", "/api/account/**", "/api/v2/payment/**",
+                        "/api/v1/card/update/", "/api/v1/card/add").hasRole("USER")
+                .requestMatchers("/role/**", "/api/v1/card/",
+                        "api/super/**","/api/admin/**").permitAll()
                 .and()
                 .httpBasic()
                 //.anyRequest().authenticated()

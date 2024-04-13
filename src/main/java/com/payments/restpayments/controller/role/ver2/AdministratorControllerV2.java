@@ -29,14 +29,14 @@ import java.util.regex.Pattern;
 import static com.payments.restpayments.RestPaymentsApplication.admins;
 
 @RestController
-@RequestMapping({"/admin/v2", "/v2/admin"})
-@Tag(name = "Administrator API v2", description = "Endpoints for Administrator API version 2")
+@RequestMapping({"/api/v2/admin", "/api/admin/v2"})
+@Tag(name = "API v2 Administrator", description = "Endpoints for Administrator API version 2")
 public class AdministratorControllerV2 {
     private static final Logger logger = LogManager.getLogger(AdministratorControllerV2.class);
     Authentication authentication;
     UserDetails userDetails;
 
-    /*// http://localhost:8080/admin/v2/all
+    /*// http://localhost:8080/api/v2/admin/all
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get all administrators")
     @GetMapping("/all")
@@ -48,7 +48,7 @@ public class AdministratorControllerV2 {
         return admins;
     }*/
 
-    // http://localhost:8080/admin/v2/me
+    // http://localhost:8080/api/v2/admin/me
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get Full Admin Information")
     @GetMapping("/me")
@@ -74,7 +74,7 @@ public class AdministratorControllerV2 {
         }
     }
 
-    // http://localhost:8080/admin/v2/name/
+    // http://localhost:8080/api/v2/admin/name/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get administrator by username")
     @GetMapping("/name/{adminUsername}")
@@ -99,7 +99,7 @@ public class AdministratorControllerV2 {
         }
     }
 
-    // http://localhost:8080/admin/v2/rname/adminRegex?
+    // http://localhost:8080/api/v2/admin/rname/adminRegex?
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get admin by username regex")
     @GetMapping("/rname/{adminRegex}")
@@ -133,8 +133,7 @@ public class AdministratorControllerV2 {
         }
     }
 
-
-    // http://localhost:8080/admin/v2/add
+    // http://localhost:8080/api/v2/admin/add
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Create a new administrator")
     @PostMapping("/add")
@@ -157,7 +156,7 @@ public class AdministratorControllerV2 {
         }
     }
 
-    // http://localhost:8080/admin/v2/update/
+    // http://localhost:8080/api/v2/admin/update/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Full update administrator")
     @PutMapping("/update/{adminId}")
@@ -180,7 +179,7 @@ public class AdministratorControllerV2 {
         }
     }
 
-    // http://localhost:8080/v2/admin/update/part
+    // http://localhost:8080/api/v2/admin/update/part
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Partially update administrator")
     @PatchMapping("/update/part")
@@ -203,7 +202,7 @@ public class AdministratorControllerV2 {
     }
 
 
-    // http://localhost:8080/admin/v2/del/
+    // http://localhost:8080/api/v2/admin/del/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete administrator")
     @DeleteMapping("/del/{adminId}")

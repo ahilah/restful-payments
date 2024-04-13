@@ -25,12 +25,12 @@ import java.util.List;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/account/v1", "/v1/account"})
-@Tag(name = "Account API v1", description = "Endpoints for Account API version 1")
+@RequestMapping({"/api/v1/account", "/api/account/v1"})
+@Tag(name = "API v1 Account", description = "Endpoints for Account API version 1")
 public class AccountControllerV1 {
     private static final Logger logger = LogManager.getLogger(AccountControllerV1.class);
 
-    // http://localhost:8080/v1/account
+    // http://localhost:8080/api/v1/account
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get all accounts by client",
             description = "Retrieve a list of all accounts associated with the specified client")

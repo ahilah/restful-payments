@@ -24,12 +24,12 @@ import java.time.LocalDateTime;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/account/v2", "/v2/account"})
-@Tag(name = "Account API v2", description = "Endpoints for Account API version 2")
+@RequestMapping({"/api/v2/account", "/api/account/v2"})
+@Tag(name = "API v2 Account ", description = "Endpoints for Account API version 2")
 public class AccountControllerV2 {
     private static final Logger logger = LogManager.getLogger(AccountControllerV2.class);
 
-    // http://localhost:8080/v2/account/
+    // http://localhost:8080/api/v2/account/
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get Account by Card Number",
             description = "Retrieve account information based on the provided card number")

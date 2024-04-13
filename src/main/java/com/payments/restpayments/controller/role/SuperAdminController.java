@@ -24,7 +24,7 @@ import java.util.List;
 import static com.payments.restpayments.RestPaymentsApplication.admins;
 
 @RestController
-@RequestMapping("/super")
+@RequestMapping("/api/super")
 public class SuperAdminController {
     private static final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final Logger logger = LogManager.getLogger(SuperAdminController.class);
@@ -33,6 +33,7 @@ public class SuperAdminController {
 
     // Authorization: Bearer
 
+    // http://localhost:8080/api/super/login
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody SuperAdmin credentials) {
         String username = credentials.getUsername();
@@ -75,7 +76,7 @@ public class SuperAdminController {
         return jwtToken;
     }
 
-    // http://localhost:8080/super/all
+    // http://localhost:8080/api/super/all
     @Operation(summary = "Get all administrators")
     @GetMapping("/all")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of administrators",
@@ -119,7 +120,7 @@ public class SuperAdminController {
         }
     }
 
-    // http://localhost:8080/admin/v2/add/admin
+    // http://localhost:8080/api/super/add/admin
     @Operation(summary = "Create a new administrator")
     @PostMapping("/add/admin")
     @ResponseBody

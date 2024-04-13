@@ -23,15 +23,15 @@ import java.util.Set;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/payment/v2", "/v2/payment"})
-@Tag(name = "Payment API v2", description = "Endpoints for Payment API version 2")
+@RequestMapping({"/api/v2/payment", "/api/payment/v2"})
+@Tag(name = "API v2 Payment", description = "Endpoints for Payment API version 2")
 public class PaymentControllerV2 {
     Set<Payment> payments = Administrator.showPaymentsInfo(clients);
     private static final Logger logger = LogManager.getLogger(PaymentControllerV2.class);
     public PaymentControllerV2() {
     }
 
-    // http://localhost:8080/payment/v2/
+    // http://localhost:8080/api/v2/payment/
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get Client Payments",
             description = "Retrieve payments associated with the provided card number")

@@ -24,15 +24,15 @@ import java.util.Set;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/client/v2", "/v2/client"})
-@Tag(name = "Client API v2", description = "Endpoints for Client API version 2")
+@RequestMapping({"/api/v2/client", "/api/client/v2"})
+@Tag(name = "API v2 Client", description = "Endpoints for Client API version 2")
 public class ClientControllerV2 {
     private static final Logger logger = LogManager.getLogger(ClientControllerV2.class);
 
     public ClientControllerV2() {
     }
 
-    // http://localhost:8080/client/v2/card
+    // http://localhost:8080/api/v2/client/card
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get all credit cards for client")
     @GetMapping("/card")
@@ -52,7 +52,7 @@ public class ClientControllerV2 {
         }
     }
 
-    // http://localhost:8080/client/v2/card/available
+    // http://localhost:8080/api/v2/client/card/available
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get available credit cards for client")
     @GetMapping("/card/available")
@@ -79,7 +79,7 @@ public class ClientControllerV2 {
         }
     }
 
-    // http://localhost:8080/client/v2/blocked
+    // http://localhost:8080/api/v2/client/blocked
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get blocked credit cards by a client")
     @GetMapping("/card/blocked")
@@ -106,7 +106,7 @@ public class ClientControllerV2 {
         }
     }
 
-    // http://localhost:8080/client/v2/update
+    // http://localhost:8080/api/v2/client/update
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Full update client information")
     @PutMapping("/update")
@@ -128,7 +128,7 @@ public class ClientControllerV2 {
         }
     }
 
-    // http://localhost:8080/client/v2/payment/
+    // http://localhost:8080/api/v2/client/payment/
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Make payment transaction between two credit cards")
     @PatchMapping("/payment/{senderCreditCardNumber}/{receiverCreditCardNumber}/{amount}")
@@ -175,7 +175,7 @@ public class ClientControllerV2 {
         return payment;
     }
 
-    // http://localhost:8080/client/v2/card/
+    // http://localhost:8080/api/v2/client/card/
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Delete a credit card for a client by card number")
     @DeleteMapping("/card/{cardNumber}")

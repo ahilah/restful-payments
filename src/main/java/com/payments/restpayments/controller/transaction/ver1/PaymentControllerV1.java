@@ -22,15 +22,15 @@ import java.util.Set;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/payment/v1", "/v1/payment"})
-@Tag(name = "Payment API v1", description = "Endpoints for Payment API version 1")
+@RequestMapping({"/api/payment/v1", "/api/v1/payment"})
+@Tag(name = "API v1 Payment", description = "Endpoints for Payment API version 1")
 public class PaymentControllerV1 {
     Set<Payment> payments = Administrator.showPaymentsInfo(clients);
     private static final Logger logger = LogManager.getLogger(PaymentControllerV1.class);
     public PaymentControllerV1() {
     }
 
-    // http://localhost:8080/payment/v1/
+    // http://localhost:8080/api/v1/payment/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get All Payments", description = "Retrieve a list of all payments")
     @GetMapping("/")

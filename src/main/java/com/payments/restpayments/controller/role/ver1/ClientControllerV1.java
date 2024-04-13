@@ -26,8 +26,8 @@ import java.util.List;
 import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 @RestController
-@RequestMapping({"/client/v1", "/v1/client"})
-@Tag(name = "Client API v1", description = "Endpoints for Client API version 1")
+@RequestMapping({"/api/v1/client", "/api/client/v1"})
+@Tag(name = "API v1 Client", description = "Endpoints for Client API version 1")
 public class ClientControllerV1 {
     Authentication authentication;
     UserDetails userDetails;
@@ -35,7 +35,7 @@ public class ClientControllerV1 {
     public ClientControllerV1() {
     }
 
-    // http://localhost:8080/client/v1/me
+    // http://localhost:8080/api/v1/client/me
     @Operation(summary = "Get Full Client Information")
     @GetMapping("/me")
     @ResponseBody
@@ -59,7 +59,7 @@ public class ClientControllerV1 {
         }
     }
 
-    // http://localhost:8080/client/v1/card/
+    // http://localhost:8080/api/v1/client/card/
     @Operation(summary = "Get client credit card by number")
     @GetMapping("/card/{creditCardNumber}")
     @ResponseBody
@@ -87,7 +87,7 @@ public class ClientControllerV1 {
     }
 
 
-    // http://localhost:8080/client/v1/update
+    // http://localhost:8080/api/v1/client/update
     @Operation(summary = "Full update client without any new data checking")
     @PutMapping("/update")
     @ResponseBody
@@ -106,7 +106,7 @@ public class ClientControllerV1 {
         }
     }
 
-    // http://localhost:8080/client/v1/update/part
+    // http://localhost:8080/api/v1/client/update/part
     @Operation(summary = "Partially update client")
     @PatchMapping("/update/part")
     @ResponseBody
@@ -130,7 +130,7 @@ public class ClientControllerV1 {
         }
     }
 
-    // http://localhost:8080/client/v1/update/detail
+    // http://localhost:8080/api/v1/client/update/detail
     @Operation(summary = "Update client details")
     @PatchMapping("/update/detail")
     @ResponseBody
@@ -152,7 +152,7 @@ public class ClientControllerV1 {
     }
 
 
-    // http://localhost:8080/client/v1/block/
+    // http://localhost:8080/api/v1/client/block/
     @Operation(summary = "Update client blocked status")
     @PatchMapping("/block/{accountId}")
     @ResponseBody
@@ -188,7 +188,7 @@ public class ClientControllerV1 {
         }
     }
 
-    // http://localhost:8080/client/v1/del/
+    // http://localhost:8080/api/v1/client/del/
     @Operation(summary = "Delete client credit cards")
     @DeleteMapping("/del")
     @ResponseBody

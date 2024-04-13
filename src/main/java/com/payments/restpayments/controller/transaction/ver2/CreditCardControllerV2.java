@@ -22,8 +22,8 @@ import static com.payments.restpayments.RestPaymentsApplication.clients;
 
 
 @RestController
-@RequestMapping({"/card/v2", "/v2/card"})
-@Tag(name = "Credit Card API v2", description = "Endpoints for Credit Card API version 2")
+@RequestMapping({"/api/v2/card", "/api/card/v2"})
+@Tag(name = "API v2 Credit Card", description = "Endpoints for Credit Card API version 2")
 public class CreditCardControllerV2 {
     Map<String, Integer> sortedCardTypesCount = CreditCard.getSortedCards(clients);
     private static final Logger logger = LogManager.getLogger(CreditCardControllerV2.class);
@@ -31,7 +31,7 @@ public class CreditCardControllerV2 {
     public CreditCardControllerV2() {
     }
 
-    // http://localhost:8080/v2/card
+    // http://localhost:8080/api/v2/card
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get Card Types Count",
             description = "Retrieve a map containing the count of each card type")
@@ -50,7 +50,7 @@ public class CreditCardControllerV2 {
         return sortedCardTypesCount;
     }
 
-    // http://localhost:8080/v2/card/
+    // http://localhost:8080/api/v2/card/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Get Card Type Count",
             description = "Retrieve the count of a specific card type")
@@ -80,7 +80,7 @@ public class CreditCardControllerV2 {
         }
     }
 
-    // http://localhost:8080/card/v2/update/
+    // http://localhost:8080/api/v2/card/update/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Full Update Credit Card", description = "Update an existing credit card")
     @PutMapping("/update/{cardNumber}")
@@ -131,7 +131,7 @@ public class CreditCardControllerV2 {
         return "Credit Card with Number " + cardNumber + " was successfully updated.";
     }
 
-    // http://localhost:8080/card/v2/bulkAdd/
+    // http://localhost:8080/api/v2/card/bulkAdd/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Bulk Add Credit Cards",
             description = "Bulk add new credit cards to a client's account")
@@ -160,7 +160,7 @@ public class CreditCardControllerV2 {
         return client != null ? client.getCreditCards() : null;
     }
 
-    // http://localhost:8080/client/v2/
+    // http://localhost:8080/api/v2/client/
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete Credit Card",
             description = "Delete an existing credit card by card number")

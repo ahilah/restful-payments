@@ -1,0 +1,14 @@
+# Файли Maven
+*/.mvn/
+*/target/
+*/mvnw
+*/mvnw.cmd
+
+# Файли конфігурації Spring Boot
+*/src/main/resources/application.properties
+*/src/main/resources/application.yml
+
+# Інші тимчасові файли
+*/.DS_Store
+*/.idea/
+*/.git/
